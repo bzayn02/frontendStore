@@ -1,17 +1,46 @@
-import React from 'react';
-import Layout from '../../components/Layout';
+import React, { useEffect, useState } from 'react';
+import Layout from '../../components/Layout/Layout';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { getProductsByCatIdAPI } from '../../helper/axios';
+import { Link, useParams } from 'react-router-dom';
+import ProductCard from '../../components/ProductCard/ProductCard';
 
 const CategoryPage = () => {
-  const { categories } = useSelector((state) => state.categoryInfo);
+  const { _id, slug } = useParams();
+  console.log(_id, slug);
+
+  const [displayProductsByCatId, setDisplayProductsByCatId] = useState([]);
+
+  useEffect(() => {
+    const getSelectedCatProducts = async () => {
+      const { result } = await getProductsByCatIdAPI({ _id, slug });
+      result?.length
+        ? setDisplayProductsByCatId(result)
+        : setDisplayProductsByCatId([]);
+    };
+    getSelectedCatProducts();
+  }, [_id, slug]);
 
   return (
     <div>
       <Layout>
         <div className="main bg-green-50">
           <Container>
-            <div className=""> Category page</div>
+            {displayProductsByCatId.length ? (
+              <div className="flex flex-wrap ">
+                {' '}
+                {displayProductsByCatId.map((displayProduct, i) => (
+                  <Link
+                    to={`/product/${displayProduct.slug}/${displayProduct._id}`}
+                    className="nav-link"
+                  >
+                    <ProductCard {...displayProduct} />
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div>No data to show</div>
+            )}
           </Container>
         </div>
       </Layout>

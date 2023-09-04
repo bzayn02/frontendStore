@@ -1,13 +1,11 @@
 import React from 'react';
-import Footer from './Layout/Footer';
-import Banner from './Layout/navigation/Banner';
-import NavigationBar from './Layout/navigation/Navbar';
+import Footer from './Footer';
+import NavigationBar from './Navbar';
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="">
       <NavigationBar />
-      <Banner />
       {children}
       <Footer />
     </div>

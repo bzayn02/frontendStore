@@ -7,3 +7,10 @@ export const getAllProductsAction = () => async (dispatch) => {
     dispatch(setProducts(result));
   }
 };
+
+// export const getAllProductsByCatIdAction = (object) => async (dispatch) => {
+//   const { status, result } = await getProductsByCatIdAPI(object);
+//   if (status === 'success') {
+//     dispatch(setDisplayProducts(result));
+//   }
+// };

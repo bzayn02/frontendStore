@@ -26,11 +26,21 @@ export const getCategoriesAPI = () => {
   };
   return axiosProcessor(obj);
 };
+
 // =========== Product API ============
+
 export const getProductsAPI = () => {
   const obj = {
     method: 'get',
     url: productAPI,
+  };
+  return axiosProcessor(obj);
+};
+
+export const getProductsByCatIdAPI = (object) => {
+  const obj = {
+    method: 'get',
+    url: rootAPI + `/categories/${object?.slug}/${object?._id}`,
   };
   return axiosProcessor(obj);
 };

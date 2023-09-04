@@ -1,11 +1,23 @@
 import React from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout/Layout';
+import { Container } from 'react-bootstrap';
+import CustomCarousel from '../../components/Carousel/CustomCarousel';
+import ProductLists from '../products/ProductLists';
 
 const Hero = () => {
   return (
-    <Layout>
-      <div className="main"></div>
-    </Layout>
+    <div>
+      <Layout>
+        <div className="main">
+          <Container>
+            <div>
+              <CustomCarousel />
+              <ProductLists />
+            </div>
+          </Container>
+        </div>
+      </Layout>
+    </div>
   );
 };
 
