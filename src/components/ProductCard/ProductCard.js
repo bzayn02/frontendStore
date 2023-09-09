@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 
 const ProductCard = ({ _id, thumbnail, name, price }) => {
   return (
@@ -19,10 +19,14 @@ const ProductCard = ({ _id, thumbnail, name, price }) => {
             <Row className="">
               {' '}
               <Col md="6">
-                <Button className="w-full d">Cart</Button>
+                <div className=" p-2 font-semibold text-teal-600 text-2xl">
+                  ${price}
+                </div>
               </Col>
               <Col md="6">
-                <Button className="w-full">Buy</Button>
+                <button className="bg-[#0275d8] p-2 w-full rounded-3xl text-gray-300">
+                  Buy
+                </button>
               </Col>
             </Row>
           </Card.Body>

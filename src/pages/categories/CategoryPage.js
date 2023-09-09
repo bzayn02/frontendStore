@@ -24,7 +24,7 @@ const CategoryPage = () => {
   return (
     <div>
       <Layout>
-        <div className="main bg-green-50">
+        <div className="main">
           <Container>
             {displayProductsByCatId.length ? (
               <div className="flex flex-wrap ">

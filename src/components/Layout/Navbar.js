@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { BsFacebook, BsFillCartFill, BsSnapchat } from 'react-icons/bs';
 import { AiFillInstagram } from 'react-icons/ai';
-import { FaTiktok, FaUserAlt } from 'react-icons/fa';
+import { FaTiktok } from 'react-icons/fa';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductsAction } from '../../pages/products/productAction';
@@ -102,36 +102,36 @@ const NavigationBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="hidden lg:flex fixed flex-col top-[35%] left-0 ">
+      <div className="hidden lg:flex fixed flex-col top-[35%] left-0 z-10 ">
         <ul className="">
           <li className="w-[160px] h-[60px] p-3 flex justify-between items-center ml-[-130px] hover:ml-[-35px] duration-300 bg-[#3b5998] hover:z-10">
             <a
-              className="flex justify-between items-center w-full text-gray-300"
-              href="/"
+              className=" no-underline flex justify-between items-center w-full text-gray-300"
+              href="https://www.facebook.com"
             >
               Facebook <BsFacebook size={30} />
             </a>
           </li>
           <li className="w-[160px] h-[60px] p-3 flex justify-between items-center ml-[-130px] hover:ml-[-35px] duration-300 bg-[#833AB4]">
             <a
-              className="flex justify-between items-center w-full  text-gray-300"
-              href="/"
+              className="   no-underline flex justify-between items-center w-full  text-gray-300"
+              href="https://www.instagram.com"
             >
               Instagram <AiFillInstagram size={30} />
             </a>
           </li>
           <li className="w-[160px] h-[60px] p-3 flex justify-between items-center ml-[-130px] hover:ml-[-35px] duration-300 bg-[#ba2a58]">
             <a
-              className="flex justify-between items-center w-full text-gray-300"
-              href="/"
+              className="  no-underline  flex justify-between items-center w-full text-gray-300"
+              href="https://www.tiktok.com"
             >
               Tiktok <FaTiktok size={30} />
             </a>
           </li>
           <li className="w-[160px] h-[60px] p-3 flex justify-between items-center ml-[-130px] hover:ml-[-35px] duration-300 bg-[#FFFC00]">
             <a
-              className="flex justify-between items-center w-full text-gray-900"
-              href="/"
+              className="  no-underline  flex justify-between items-center w-full text-gray-900"
+              href="https://www.snapchat.com"
             >
               SnapChat <BsSnapchat size={30} />
             </a>
