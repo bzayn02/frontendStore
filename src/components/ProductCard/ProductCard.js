@@ -24,7 +24,7 @@ const ProductCard = ({ _id, thumbnail, name, price }) => {
                 </div>
               </Col>
               <Col md="6">
-                <button className="bg-[#0275d8] p-2 w-full rounded-3xl text-gray-300">
+                <button className="border-1 border-[#0275d8]  hover:bg-[#0275d8] p-2 w-full rounded-3xl hover:text-gray-100 hover:cursor-pointer">
                   Buy
                 </button>
               </Col>

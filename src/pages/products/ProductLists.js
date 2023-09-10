@@ -12,10 +12,7 @@ const ProductLists = () => {
       {displayProducts?.length ? (
         <div className="flex flex-wrap">
           {displayProducts.map((displayProduct, i) => (
-            <Link
-              to={`/product/${displayProduct.slug}/${displayProduct._id}`}
-              className="nav-link"
-            >
+            <Link to={`/product/${displayProduct.slug}`} className="nav-link">
               <ProductCard {...displayProduct} />
             </Link>
           ))}

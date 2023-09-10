@@ -37,6 +37,14 @@ export const getProductsAPI = () => {
   return axiosProcessor(obj);
 };
 
+export const getProductBySlugAPI = (slug) => {
+  const obj = {
+    method: 'get',
+    url: rootAPI + `/product/${slug}`,
+  };
+  return axiosProcessor(obj);
+};
+
 export const getProductsByCatIdAPI = (object) => {
   const obj = {
     method: 'get',

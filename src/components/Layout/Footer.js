@@ -50,7 +50,7 @@ const Footer = () => {
             <p className="mt-4 text-center lg:text-left lg:text-lg">
               Unleash Your Style: Elevate Your Wardrobe with Our Latest
               Collection! Explore, Shop, and Slay with BN Store
-              <div> #FashionForward #ShopTillYouDrop #StyleGoals</div>
+              <span> #FashionForward #ShopTillYouDrop #StyleGoals</span>
             </p>
           </div>
 
@@ -62,8 +62,8 @@ const Footer = () => {
               </strong>
 
               <ul className="mt-6 space-y-1 list-none">
-                {categories.map((category) => (
-                  <li>
+                {categories.map((category, i) => (
+                  <li key={i}>
                     <Link className="nav-link transition" to="/">
                       {category.title}
                     </Link>
