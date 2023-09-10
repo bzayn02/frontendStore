@@ -3,12 +3,16 @@ import Layout from '../../components/Layout/Layout';
 import { useParams } from 'react-router-dom';
 import { AiFillHeart } from 'react-icons/ai';
 import { getProductBySlugAPI } from '../../helper/axios';
+import { setAddToCart } from '../cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductLanding = () => {
+  const dispatch = useDispatch();
   const { slug } = useParams();
   const [displayProduct, setDisplayProduct] = useState({});
   const [productImg, setProductImg] = useState('');
-
+  const [newCartData, setNewCartData] = useState([]);
+  console.log(newCartData);
   useEffect(() => {
     const getSelectedProduct = async () => {
       const { result } = await getProductBySlugAPI(slug);
@@ -16,7 +20,6 @@ const ProductLanding = () => {
     };
     getSelectedProduct();
   }, [slug]);
-  console.log(displayProduct, 'display product');
 
   useEffect(() => {
     setProductImg(
@@ -24,6 +27,24 @@ const ProductLanding = () => {
         displayProduct?.thumbnail?.substring(6)
     );
   }, [displayProduct]);
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setNewCartData({
+      ...displayProduct,
+      [name]: value,
+    });
+  };
+
+  const handleOnAddCart = () => {
+    if (newCartData?.orderQty === undefined) {
+      window.alert('Select the quantity please!');
+    }
+    dispatch(setAddToCart(newCartData));
+
+    console.log(newCartData, 'new cart data');
+  };
 
   return (
     <Layout>
@@ -75,14 +96,14 @@ const ProductLanding = () => {
                       </svg>
                     </span>
                   </div>
-                  {/* <div className="ml-5 text-black">In Stock: {qty}</div>
-                   */}
+
                   <div className="mx-3">
                     <label className="text-black">Qty:</label>
                     <input
-                      // onChange={handleOnChange}
+                      onChange={handleOnChange}
                       name="orderQty"
                       placeholder="111"
+                      required
                       className="ml-1 rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 w-12"
                       type="number"
                     />
@@ -94,7 +115,10 @@ const ProductLanding = () => {
                 <span className="title-font font-semibold text-3xl text-black">
                   ${displayProduct?.price}
                 </span>
-                <button className="flex ml-auto bg-slate-300 border-0 py-2 px-6 focus:outline-none hover:bg-[#0275d8] hover:text-white rounded">
+                <button
+                  onClick={handleOnAddCart}
+                  className="flex ml-auto bg-slate-300 border-0 py-2 px-6 focus:outline-none hover:bg-[#0275d8] hover:text-white rounded"
+                >
                   Add to Cart
                 </button>
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">

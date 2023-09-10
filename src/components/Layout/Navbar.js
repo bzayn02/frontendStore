@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 const NavigationBar = () => {
   const { categories } = useSelector((state) => state.categoryInfo);
   const { products } = useSelector((state) => state.productInfo);
+  const { cart } = useSelector((state) => state.displayCartInfo);
 
   const dispatch = useDispatch();
 
@@ -86,6 +87,7 @@ const NavigationBar = () => {
                 <div className="text-2xl p-2 flex items-center justify-center :flex-none ">
                   {' '}
                   <BsFillCartFill />
+                  <div>{}</div>
                 </div>
               </Link>
               <Link className="nav-link" to="/sign-in">

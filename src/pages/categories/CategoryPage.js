@@ -31,7 +31,7 @@ const CategoryPage = () => {
                 {' '}
                 {displayProductsByCatId.map((displayProduct, i) => (
                   <Link
-                    to={`/product/${displayProduct.slug}/${displayProduct._id}`}
+                    to={`/product/${displayProduct.slug}`}
                     className="nav-link"
                   >
                     <ProductCard {...displayProduct} />
