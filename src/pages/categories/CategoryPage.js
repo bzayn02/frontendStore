@@ -17,6 +17,7 @@ const CategoryPage = () => {
       result?.length
         ? setDisplayProductsByCatId(result)
         : setDisplayProductsByCatId([]);
+      window.scrollTo(0, 0);
     };
     getSelectedCatProducts();
   }, [_id, slug]);

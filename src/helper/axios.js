@@ -1,13 +1,14 @@
 import axios from 'axios';
 
 const rootAPI = process.env.REACT_APP_ROOTAPI;
-const categoryAPI = rootAPI + '/categories';
-const productAPI = rootAPI + '/products';
+const categoryAPI = rootAPI + 'categories';
+const productAPI = rootAPI + 'products';
+const userAPI = rootAPI + 'user';
 
 const axiosProcessor = async ({ method, url, obj }) => {
   try {
     const { data } = await axios({ method, url, data: obj });
-    console.log(data, 'from axios');
+
     return data;
   } catch (error) {
     return axiosProcessor({
@@ -16,6 +17,25 @@ const axiosProcessor = async ({ method, url, obj }) => {
       obj,
     });
   }
+};
+
+// =========== User API ================
+export const postNewUser = (data) => {
+  const obj = {
+    method: 'post',
+    url: userAPI,
+    obj: data,
+  };
+  return axiosProcessor(obj);
+};
+
+export const postVerifyNewUserInfo = (data) => {
+  const obj = {
+    method: 'post',
+    url: userAPI + '/user-verification',
+    obj: data,
+  };
+  return axiosProcessor(obj);
 };
 
 // =========== Category API ============
@@ -40,7 +60,7 @@ export const getProductsAPI = () => {
 export const getProductBySlugAPI = (slug) => {
   const obj = {
     method: 'get',
-    url: rootAPI + `/product/${slug}`,
+    url: rootAPI + `products/product/${slug}`,
   };
   return axiosProcessor(obj);
 };
@@ -48,7 +68,7 @@ export const getProductBySlugAPI = (slug) => {
 export const getProductsByCatIdAPI = (object) => {
   const obj = {
     method: 'get',
-    url: rootAPI + `/categories/${object?.slug}/${object?._id}`,
+    url: rootAPI + `products/categories/${object?.slug}/${object?._id}`,
   };
   return axiosProcessor(obj);
 };

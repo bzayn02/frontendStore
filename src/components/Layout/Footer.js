@@ -11,13 +11,6 @@ const Footer = () => {
   const thisYear = currentDate.getFullYear();
   return (
     <div className="text-center flex items-center justify-center bg-gray-600 text-white">
-      {/*
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
-*/}
-
       <div className="mx-auto max-w-screen-xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-md">
           <strong className="block text-center text-xl font-bold  sm:text-3xl">

@@ -10,6 +10,9 @@ import { getAllProductsAction } from './pages/products/productAction';
 import { setDisplayProducts } from './pages/products/displayProductSlice';
 import ProductLanding from './pages/products/ProductLanding';
 import CartPage from './pages/cart/CartPage';
+import SignUp from './pages/signup/SignUp';
+import SignIn from './pages/signin/SignIn';
+import UserVerification from './pages/userAction/UserVerification';
 
 const App = () => {
   const { products } = useSelector((state) => state.productInfo);
@@ -27,12 +30,15 @@ const App = () => {
   return (
     <div className="app">
       <Routes>
+        <Route path="user-verification" element={<UserVerification />} />
         <Route path="/" element={<Hero />} />
         <Route path="categories/:slug/:_id" element={<CategoryPage />} />
         <Route path="product/:slug" element={<ProductLanding />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="sign-in" element={<SignIn />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="top-center" theme="dark" />
     </div>
   );
 };

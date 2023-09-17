@@ -38,13 +38,13 @@ const NavigationBar = () => {
   return (
     <div>
       {' '}
-      <div className=" w-screen text-center p-1 font-bold italic bg-gray-900 text-gray-400">
+      <div className=" w-screen text-center mt-14 font-bold italic bg-gray-900 text-gray-400">
         Best offer till 30/09/2023
       </div>
       <Navbar
         collapseOnSelect
         expand="md"
-        className=" bg-slate-300 md:h-14"
+        className=" bg-slate-300 md:h-14 fixed-top"
         variant="light"
       >
         <Container>
@@ -84,10 +84,16 @@ const NavigationBar = () => {
               </div>
 
               <Link className="nav-link" to="/cart">
-                <div className="text-2xl p-2 flex items-center justify-center :flex-none ">
-                  {' '}
-                  <BsFillCartFill />
-                  <div>{}</div>
+                <div className="relative">
+                  <div className="text-2xl p-2 flex items-center justify-center">
+                    <BsFillCartFill />
+                  </div>
+                  {cart.reduce((total, item) => total + +item.orderQty, 0) >
+                  0 ? (
+                    <div className="absolute top-0 h-5 w-5 right-0 bg-red-500 flex justify-center items-center text-white rounded-full text-sm">
+                      {cart.reduce((total, item) => total + +item.orderQty, 0)}
+                    </div>
+                  ) : null}
                 </div>
               </Link>
               <Link className="nav-link" to="/sign-in">

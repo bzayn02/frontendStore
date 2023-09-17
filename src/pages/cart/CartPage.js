@@ -2,13 +2,9 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRemoveItem, setUpdateQuantity } from './cartSlice';
+import { Link } from 'react-router-dom';
 
 const CartPage = () => {
-  // const [cartItems, setCartItems] = useState([
-  //   { id: 1, name: 'Item 1', price: 10, quantity: 2 },
-  //   { id: 2, name: 'Item 2', price: 15, quantity: 1 },
-  // ]);
-
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.displayCartInfo);
 
@@ -34,7 +30,12 @@ const CartPage = () => {
           Your Shopping Cart
         </h2>
         {cart?.length === 0 ? (
-          <p>Your cart is empty.</p>
+          <p className=" h-96 w-full flex items-center justify-center text-2xl">
+            Your cart is empty.{' '}
+            <span className=" fs-3 ml-4">
+              <Link to="/">Start Shopping Now!</Link>
+            </span>
+          </p>
         ) : (
           <>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -50,7 +51,7 @@ const CartPage = () => {
                               process.env.REACT_APP_ADMIN_ROOTAPI +
                               item.thumbnail?.substring(6)
                             }
-                            className="w-48 rounded-xl"
+                            className=" w-32 rounded-xl"
                             alt=""
                           />
                           <div>

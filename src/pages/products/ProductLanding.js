@@ -5,6 +5,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { getProductBySlugAPI } from '../../helper/axios';
 import { setAddToCart } from '../cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const ProductLanding = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const ProductLanding = () => {
 
   const handleOnAddCart = () => {
     if (newCartData?.orderQty === undefined) {
-      window.alert('Select the quantity please!');
+      toast('Select the quantity please!');
     }
     dispatch(setAddToCart(newCartData));
 
@@ -102,7 +103,7 @@ const ProductLanding = () => {
                     <input
                       onChange={handleOnChange}
                       name="orderQty"
-                      placeholder="111"
+                      placeholder=""
                       required
                       className="ml-1 rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 w-12"
                       type="number"

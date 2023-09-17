@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 
-const ProductCard = ({ _id, thumbnail, name, price }) => {
+const ProductCard = ({ thumbnail, name, price }) => {
   return (
     <div>
       {' '}
