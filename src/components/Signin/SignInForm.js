@@ -1,9 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import car10 from '../../assets/car10.avif';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiFillEye } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  autoLoginAction,
+  signInUserAction,
+} from '../../pages/userAction/userAction';
+import { Form } from 'react-bootstrap';
+
+const initialState = {
+  email: '',
+  password: '',
+};
 
 const SignInForm = () => {
+  const location = useLocation();
+  const [form, setForm] = useState(initialState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.userInfo);
+
+  const pathTo = location.state?.from?.location?.pathname || '/';
+
+  useEffect(() => {
+    user?._id && navigate(pathTo);
+    dispatch(autoLoginAction());
+  }, [user, navigate, dispatch, pathTo]);
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signInUserAction(form));
+    navigate('/');
+  };
+
   return (
     <div>
       <section className=" bg-slate-400 min-h-screen flex items-center justify-center">
@@ -19,12 +54,14 @@ const SignInForm = () => {
             <p className="text-md mt-4 text-[#1f424e] text-center">
               If you're already a member, please login.
             </p>
-            <form action="" className="flex flex-col gap-4">
+            <Form onSubmit={handleOnSubmit} className="flex flex-col gap-4">
               <input
                 className="p-2 mt-8 rounded-xl border"
-                type="text"
+                type="email"
                 name="email"
+                onChange={handleOnChange}
                 placeholder="sam@mail.com"
+                required
               />
               <div className="relative">
                 {' '}
@@ -32,15 +69,20 @@ const SignInForm = () => {
                   className=" w-full p-2 rounded-xl border "
                   type="password"
                   name="password"
-                  placeholder="❍❍❍❍❍❍❍❍❍❍"
+                  onChange={handleOnChange}
+                  placeholder="***********"
+                  required
                 />
                 <AiFillEye className="absolute right-3 top-1/4 text-2xl text-gray-600" />
               </div>
 
-              <button className="hover:bg-[#1f424e] hover:text-gray-50 rounded-xl  py-2 text-[#1f424e] border-1 border-[#1f424e] bg-gray-300">
+              <button
+                type="submit"
+                className="hover:bg-[#1f424e] hover:text-gray-50 rounded-xl  py-2 text-[#1f424e] border-1 border-[#1f424e] bg-gray-300"
+              >
                 Login
               </button>
-            </form>
+            </Form>
 
             <Link to="/" className="nav-link">
               <p className="mt-5 text-md border-b py-4 text-center border-[#1f424e] text-[#1f424e]">

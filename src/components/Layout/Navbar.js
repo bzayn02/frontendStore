@@ -5,19 +5,22 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { BsFacebook, BsFillCartFill, BsSnapchat } from 'react-icons/bs';
 import { AiFillInstagram } from 'react-icons/ai';
-import { FaTiktok } from 'react-icons/fa';
+import { FaSignOutAlt, FaTiktok, FaUserCircle } from 'react-icons/fa';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductsAction } from '../../pages/products/productAction';
 import { setDisplayProducts } from '../../pages/products/displayProductSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signoutUser } from '../../helper/axios';
+import { setUser } from '../../pages/userAction/userSlice';
 
 const NavigationBar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categoryInfo);
   const { products } = useSelector((state) => state.productInfo);
   const { cart } = useSelector((state) => state.displayCartInfo);
-
-  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     dispatch(getAllProductsAction());
@@ -26,6 +29,14 @@ const NavigationBar = () => {
   useEffect(() => {
     dispatch(setDisplayProducts(products));
   }, [dispatch, products]);
+  const handleOnLogout = () => {
+    signoutUser(user._id);
+
+    localStorage.removeItem('refreshJWT');
+    sessionStorage.removeItem('accessJWT');
+    dispatch(setUser({}));
+    navigate('/');
+  };
 
   const handleOnSearch = (e) => {
     dispatch(setDisplayProducts(products));
@@ -96,16 +107,37 @@ const NavigationBar = () => {
                   ) : null}
                 </div>
               </Link>
-              <Link className="nav-link" to="/sign-in">
-                <div className="text-center p-2 border-1 border-[#0275d8] rounded hover:bg-[#0275d8] hover:text-gray-50">
-                  Sign In
-                </div>
-              </Link>
-              <Link className="nav-link" to="/sign-up">
-                <div className="text-center text-gray-50 p-2 border-1 border-[#0275d8] rounded bg-[#0275d8]">
-                  Sign Up
-                </div>
-              </Link>
+              {user?._id ? (
+                <>
+                  <div className="text-2xl p-2 flex items-center justify-center">
+                    {' '}
+                    <Link to="/profile" className="nav-link">
+                      <FaUserCircle />
+                    </Link>
+                  </div>
+
+                  <div className="text-2xl p-2 flex items-center justify-center">
+                    {' '}
+                    <Link to="/" className="nav-link" onClick={handleOnLogout}>
+                      <FaSignOutAlt />
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {' '}
+                  <Link className="nav-link" to="/sign-in">
+                    <div className="text-center p-2 border-1 border-[#0275d8] rounded hover:bg-[#0275d8] hover:text-gray-50">
+                      Sign In
+                    </div>
+                  </Link>
+                  <Link className="nav-link" to="/sign-up">
+                    <div className="text-center text-gray-50 p-2 border-1 border-[#0275d8] rounded bg-[#0275d8]">
+                      Sign Up
+                    </div>
+                  </Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

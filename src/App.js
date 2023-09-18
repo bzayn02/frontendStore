@@ -13,6 +13,8 @@ import CartPage from './pages/cart/CartPage';
 import SignUp from './pages/signup/SignUp';
 import SignIn from './pages/signin/SignIn';
 import UserVerification from './pages/userAction/UserVerification';
+import { getUserProfileAction } from './pages/userAction/userAction';
+import Profile from './pages/profile/Profile';
 
 const App = () => {
   const { products } = useSelector((state) => state.productInfo);
@@ -21,6 +23,10 @@ const App = () => {
   useEffect(() => {
     dispatch(getAllCategoriesAction());
     dispatch(getAllProductsAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getUserProfileAction());
   }, [dispatch]);
 
   useEffect(() => {
@@ -37,6 +43,7 @@ const App = () => {
         <Route path="cart" element={<CartPage />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-in" element={<SignIn />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
       <ToastContainer position="top-center" theme="dark" />
     </div>

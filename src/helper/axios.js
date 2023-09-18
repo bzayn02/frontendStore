@@ -5,17 +5,51 @@ const categoryAPI = rootAPI + 'categories';
 const productAPI = rootAPI + 'products';
 const userAPI = rootAPI + 'user';
 
-const axiosProcessor = async ({ method, url, obj }) => {
+const getAccessJWT = () => {
+  return sessionStorage.getItem('accessJWT');
+};
+
+const getRefreshJWT = () => {
+  return localStorage.getItem('refreshJWT');
+};
+
+const axiosProcessor = async ({
+  method,
+  url,
+  obj,
+  isPrivate,
+  refreshToken,
+}) => {
+  const token = refreshToken ? getRefreshJWT() : getAccessJWT();
+  const headers = {
+    Authorization: isPrivate ? token : null,
+  };
   try {
-    const { data } = await axios({ method, url, data: obj });
+    const { data } = await axios({ method, url, data: obj, headers });
 
     return data;
   } catch (error) {
-    return axiosProcessor({
-      method,
-      url,
-      obj,
-    });
+    if (
+      error?.response?.status === 403 &&
+      error?.response?.data?.message === 'jwt expired'
+    ) {
+      // Get new access JWT
+      const { status, accessJWT } = await getNewAccessJWT();
+      if (status === 'success' && accessJWT) {
+        sessionStorage.setItem('accessJWT', accessJWT);
+      }
+      return axiosProcessor({
+        method,
+        url,
+        obj,
+        isPrivate,
+        refreshToken,
+      });
+    }
+    return {
+      status: 'error',
+      message: error.response ? error?.response?.data?.message : error.message,
+    };
   }
 };
 
@@ -34,6 +68,33 @@ export const postVerifyNewUserInfo = (data) => {
     method: 'post',
     url: userAPI + '/user-verification',
     obj: data,
+  };
+  return axiosProcessor(obj);
+};
+
+export const signInUser = (data) => {
+  const obj = {
+    method: 'post',
+    url: userAPI + '/sign-in',
+    obj: data,
+  };
+  return axiosProcessor(obj);
+};
+
+export const getUserInfo = () => {
+  const obj = {
+    method: 'get',
+    url: userAPI,
+    isPrivate: true,
+  };
+  return axiosProcessor(obj);
+};
+
+export const signoutUser = (_id) => {
+  const obj = {
+    method: 'post',
+    url: userAPI + '/signout',
+    obj: { _id, accessJWT: getAccessJWT(), refreshJWT: getRefreshJWT() },
   };
   return axiosProcessor(obj);
 };
@@ -69,6 +130,18 @@ export const getProductsByCatIdAPI = (object) => {
   const obj = {
     method: 'get',
     url: rootAPI + `products/categories/${object?.slug}/${object?._id}`,
+  };
+  return axiosProcessor(obj);
+};
+
+// ================= Get New AccessJWT =========
+
+export const getNewAccessJWT = () => {
+  const obj = {
+    method: 'get',
+    url: userAPI + '/get-accessjwt',
+    refreshToken: true,
+    isPrivate: true,
   };
   return axiosProcessor(obj);
 };
