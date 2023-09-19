@@ -8,6 +8,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, { payload }) => {
+      if (state.user === undefined && payload === undefined) {
+        return;
+      }
       state.user = payload;
     },
   },

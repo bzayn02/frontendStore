@@ -2,9 +2,10 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRemoveItem, setUpdateQuantity } from './cartSlice';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const CartPage = () => {
+  const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.displayCartInfo);
 
@@ -103,9 +104,19 @@ const CartPage = () => {
                     {cart.reduce((total, item) => total + +item.orderQty, 0)}
                   </p>
                   <p className="mb-2">Total Price: ${calculateTotalPrice()}</p>
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full mt-4">
-                    Checkout
-                  </button>
+                  {user?._id ? (
+                    <Link to="/checkout" className="nav-link">
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full mt-4">
+                        Proceed to Checkout
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link to="/sign-in" className="nav-link">
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full mt-4">
+                        Login to Checkout
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

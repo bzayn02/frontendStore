@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Layout from '../../components/Layout/Layout';
 
 const Profile = () => {
   const { user } = useSelector((state) => state.userInfo);
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-6">
         <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="bg-gray-200 text-center py-4">
             <img
-              src={user.profileImg}
+              src={
+                process.env.REACT_APP_ROOTSERVER + user?.profileImg?.slice(6)
+              }
               alt={`${user.fname} ${user.lname}`}
-              className="w-32 h-32 mx-auto rounded-full"
+              className=" w-60 h-60 mx-auto rounded-full object-fit-cover"
             />
           </div>
           <div className="px-6 py-4">

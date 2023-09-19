@@ -13,8 +13,12 @@ import CartPage from './pages/cart/CartPage';
 import SignUp from './pages/signup/SignUp';
 import SignIn from './pages/signin/SignIn';
 import UserVerification from './pages/userAction/UserVerification';
-import { getUserProfileAction } from './pages/userAction/userAction';
+import {
+  autoLoginAction,
+  getUserProfileAction,
+} from './pages/userAction/userAction';
 import Profile from './pages/profile/Profile';
+import PrivateRoute from './components/private/PrivateRoute';
 
 const App = () => {
   const { products } = useSelector((state) => state.productInfo);
@@ -26,6 +30,7 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(autoLoginAction());
     dispatch(getUserProfileAction());
   }, [dispatch]);
 
@@ -43,8 +48,18 @@ const App = () => {
         <Route path="cart" element={<CartPage />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-in" element={<SignIn />} />
-        <Route path="profile" element={<Profile />} />
+
+        {/* Private Route */}
+        <Route
+          path="profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
+
       <ToastContainer position="top-center" theme="dark" />
     </div>
   );

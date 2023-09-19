@@ -22,6 +22,7 @@ const SignInForm = () => {
   const { user } = useSelector((state) => state.userInfo);
 
   const pathTo = location.state?.from?.location?.pathname || '/';
+  console.log(location);
 
   useEffect(() => {
     user?._id && navigate(pathTo);
