@@ -6,6 +6,7 @@ import productReducer from './pages/products/productSlice';
 import displayProductReducer from './pages/products/displayProductSlice';
 import cartReducer from './pages/cart/cartSlice';
 import userReducer from './pages/userAction/userSlice';
+import paymentOptionsReducer from './pages/checkout/paymentSlice';
 
 const cartPersistConfig = {
   key: 'displayCartInfo',
@@ -21,6 +22,7 @@ const store = configureStore({
     displayProductInfo: displayProductReducer,
     displayCartInfo: persistedCartReducer,
     userInfo: userReducer,
+    paymentOptionsInfo: paymentOptionsReducer,
   },
 });
 

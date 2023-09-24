@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRemoveItem, setUpdateQuantity } from './cartSlice';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CartPage = () => {
   const { user } = useSelector((state) => state.userInfo);

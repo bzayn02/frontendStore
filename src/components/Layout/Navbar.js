@@ -116,7 +116,7 @@ const NavigationBar = () => {
                     </Link>
                   </div>
 
-                  <div className="text-2xl p-2 flex items-center justify-center">
+                  <div className="border-l-2 border-gray-700 text-2xl p-2 flex items-center justify-center">
                     {' '}
                     <Link to="/" className="nav-link" onClick={handleOnLogout}>
                       <FaSignOutAlt />

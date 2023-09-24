@@ -19,6 +19,7 @@ import {
 } from './pages/userAction/userAction';
 import Profile from './pages/profile/Profile';
 import PrivateRoute from './components/private/PrivateRoute';
+import Checkout from './pages/checkout/Checkout';
 
 const App = () => {
   const { products } = useSelector((state) => state.productInfo);
@@ -55,6 +56,15 @@ const App = () => {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
             </PrivateRoute>
           }
         />

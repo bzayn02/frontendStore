@@ -4,6 +4,7 @@ const rootAPI = process.env.REACT_APP_ROOTAPI;
 const categoryAPI = rootAPI + 'categories';
 const productAPI = rootAPI + 'products';
 const userAPI = rootAPI + 'user';
+const paymentAPI = rootAPI + 'payment-options';
 
 const getAccessJWT = () => {
   return sessionStorage.getItem('accessJWT');
@@ -141,6 +142,17 @@ export const getNewAccessJWT = () => {
     method: 'get',
     url: userAPI + '/get-accessjwt',
     refreshToken: true,
+    isPrivate: true,
+  };
+  return axiosProcessor(obj);
+};
+
+// =============== Get all active payment options ======
+
+export const getPaymentOptions = () => {
+  const obj = {
+    method: 'get',
+    url: paymentAPI,
     isPrivate: true,
   };
   return axiosProcessor(obj);
